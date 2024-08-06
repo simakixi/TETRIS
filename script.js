@@ -35,7 +35,7 @@ board.height = ScreenH;
 board.style.border = "4px solid white";
 
 //落ちるスピード
-let GameSpeed = 800;
+let GameSpeed = 500;
 
 
 //テトロミノ
@@ -242,7 +242,11 @@ function CheckLine(){
             }
         }
     }
-    for(let i=linecnt;0<i;i++){
-        GameSpeed -= 10;
+    for(let i=linecnt;0<i;i--){
+        if(150<GameSpeed){
+            GameSpeed -= 10;
+            clearInterval(setInterval);
+            setInterval(DropTetro,GameSpeed);
+        }
     }
 }
