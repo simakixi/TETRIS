@@ -242,7 +242,7 @@ function CheckLine(){
             }
         }
     }
-    for(let i=linecnt;i<0;i++){
+    for(let i=linecnt;0<i;i++){
         GameSpeed -= 10;
     }
 }
