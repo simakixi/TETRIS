@@ -3,6 +3,8 @@ body {
 }
 
 #Tetris{
+    margin-left: 300px;
+    margin-top: 20px;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +18,7 @@ p{
 #content{
     flex-direction: column;
     align-items: center;
-    margin-top:-15px;
+    margin-top:-17px;
     margin-left: 20px;
     font-size: 24px;
 }
@@ -35,7 +37,7 @@ p{
 #guid{
     font-size: 30px;
     margin-top:-10px;
-    line-height: 0.9;
+    line-height: 0.93;
 }
 
 #next{
