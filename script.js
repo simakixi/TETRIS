@@ -244,7 +244,7 @@ function CheckLine(){
     }
     for(let i=linecnt;0<i;i--){
         if(150<GameSpeed){
-            GameSpeed -= 10;
+            GameSpeed -= 5;
             clearInterval(setInterval);
             setInterval(DropTetro,GameSpeed);
         }
