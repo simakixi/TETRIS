@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>TETRIS</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <canvas id="board"></canvas>
+        <div id="Tetris">
+            <canvas id="board"></canvas>
+            <div id="content">
+                <div class="border">
+                    <p id="nextp">次のテトロ</p>
+                    <div id="next">
+                        <canvas id="nextTetro"></canvas>
+                    </div>
+                </div>
+                <div class="border">
+                    <p id="score">スコア：0</p>
+                </div>
+                <div class="border">
+                    <div id="guid">
+                        <p class="center">操作方法</p>
+                        <p>→：右に移動</p>
+                        <p>←：左に移動</p>
+                        <p>↓：下に移動</p>
+                        <p>↑：回転</p>
+                        <p>space：下まで落下</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
     <script src="script.js"></script>
 </html>

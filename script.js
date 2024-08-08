@@ -2,6 +2,8 @@
 const board = document.getElementById("board");
 const canvas = board.getContext("2d");
 
+const next = document.getElementById("nextTetro");
+const nextC = next.getContext("2d");
 
 //フィールドサイズ
 const Fieldcol = 10;
@@ -9,6 +11,7 @@ const Fieldrow = 22;
 
 //ブロック一つのサイズ
 const BlockSize = 35;
+const nextBlockSize = 40;
 //テトロミノのサイズ
 const TetroSize = 4;
 let position = Fieldcol/2 - TetroSize/2;
@@ -36,7 +39,8 @@ board.style.border = "4px solid white";
 
 //落ちるスピード
 let GameSpeed = 500;
-
+//スコア
+let score = 0;
 
 //テトロミノ
 const TetroType = [
@@ -60,9 +64,9 @@ const TetroType = [
         [0,0,0,0]
     ],
     [   //4T
+        [0,0,0,0],
         [0,1,0,0],
         [1,1,1,0],
-        [0,0,0,0],
         [0,0,0,0]
     ],
     [   //5O
@@ -88,8 +92,10 @@ const Color = ["#000","#9DF", "#F92", "#99F", "#E8E", "#FD2", "#F77", "#7D7"];
 
 let random = Math.floor(Math.random()*(TetroType.length-1))+1;
 let Tetro = TetroType[random];
+let nextTetro = Math.floor(Math.random()*(TetroType.length-1))+1;
 let game = false;
 
+content();
 init();
 drawTetris();
 
@@ -101,13 +107,15 @@ function DropTetro(){
     else{
         FixTetro();
         CheckLine();
-        random = Math.floor(Math.random()*(TetroType.length-1))+1;
+        random = nextTetro;
+        nextTetro = Math.floor(Math.random()*(TetroType.length-1))+1;
         Tetro = TetroType[random];
         TetroX = position;
         TetroY = 0;
         if(!Checkmove(0,0)){
             game = true;
         }
+        content();
     }
     drawTetris();
 }
@@ -177,7 +185,7 @@ document.onkeydown = function(e){
         case 40:    //下
             if(Checkmove(0,1,Tetro))TetroY++;
             break;
-        case 13:
+        case 32:
             FallingBlock();
             break;
     }
@@ -245,6 +253,10 @@ function CheckLine(){
             }
         }
     }
+    //スコアを計算する
+    if(0<linecnt){
+        score += Math.floor(100*Math.pow(1.1,linecnt-1));
+    }
     for(let i=linecnt;0<i;i--){
         if(150<GameSpeed){
             GameSpeed -= 5;
@@ -254,8 +266,32 @@ function CheckLine(){
     Interval = setInterval(DropTetro,GameSpeed);
 }
 
+//落下予測地点に落下させる
 function FallingBlock(){
     let plus = 0;
     while(Checkmove(0,plus+1))plus++;
     if(Checkmove(0,plus,Tetro))TetroY+=plus;
+}
+
+//ここからスコアや次のテトリミノの設定
+function content(){
+    nextC.clearRect(0,0,ScreenH,ScreenW);
+    let NextTetro = TetroType[nextTetro];
+    document.getElementById("score").innerHTML = "スコア："+score;
+    for(let i=0;i<TetroSize;i++){
+        for(let j=0;j<TetroSize;j++){
+            if(NextTetro[i][j]){
+                nextBlock(i,j,nextTetro);
+            }
+        }
+    }
+}
+
+function nextBlock(i,j,c){
+    let px = j * nextBlockSize;
+    let py = i * nextBlockSize;
+    nextC.fillStyle = Color[c];
+    nextC.fillRect(px,py,nextBlockSize,nextBlockSize);
+    nextC.strokeStyle="gray";
+    nextC.strokeRect(px,py,nextBlockSize,nextBlockSize);
 }
