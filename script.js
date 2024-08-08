@@ -94,7 +94,7 @@ init();
 drawTetris();
 
 //テトロミノを落とす
-setInterval(DropTetro,GameSpeed);
+let Interval = setInterval(DropTetro,GameSpeed);
 function DropTetro(){
     if(game)return;
     if(Checkmove(0,1,Tetro))TetroY++;
@@ -245,8 +245,8 @@ function CheckLine(){
     for(let i=linecnt;0<i;i--){
         if(150<GameSpeed){
             GameSpeed -= 5;
-            clearInterval(setInterval);
-            setInterval(DropTetro,GameSpeed);
         }
     }
+    clearInterval(Interval);
+    Interval = setInterval(DropTetro,GameSpeed);
 }
