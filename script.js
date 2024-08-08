@@ -84,7 +84,7 @@ const TetroType = [
         [0,0,0,0]
     ]
 ];
-const Color = ["#000","#6CF","#F92","#66F","#C5C","#FD2","#F44","#5B5"];
+const Color = ["#000","#9DF", "#F92", "#99F", "#E8E", "#FD2", "#F77", "#7D7"];
 
 let random = Math.floor(Math.random()*(TetroType.length-1))+1;
 let Tetro = TetroType[random];
@@ -177,6 +177,9 @@ document.onkeydown = function(e){
         case 40:    //下
             if(Checkmove(0,1,Tetro))TetroY++;
             break;
+        case 13:
+            FallingBlock();
+            break;
     }
     drawTetris();
 }
@@ -249,4 +252,10 @@ function CheckLine(){
     }
     clearInterval(Interval);
     Interval = setInterval(DropTetro,GameSpeed);
+}
+
+function FallingBlock(){
+    let plus = 0;
+    while(Checkmove(0,plus+1))plus++;
+    if(Checkmove(0,plus,Tetro))TetroY+=plus;
 }
